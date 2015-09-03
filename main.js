@@ -53,12 +53,15 @@ player2.name = prompt();
 printBoard();
 clear();
 
-while(winFlag = false || turnCounter < 9){
+while((winFlag === false) || (turnCounter < 9)){
     playerTurn(turnCounter);
     turnCounter++;
     console.log(currentPlayer.name + ' it is your turn!');
     console.log('Enter your move now!');
-    validInput(regex, currentPlayer.move = prompt());
+    currentPlayer.move = prompt();
+    while(cleanMove === null){
+        validInput(regex, currentPlayer.move);
+    }
 
 
 }
