@@ -12,6 +12,7 @@
     "cli-clear": "^1.0.4"
   },
   "dependencies": {
+    "colors": "^1.1.2",
     "prompt-sync": "^3.0.0"
   }
 }
