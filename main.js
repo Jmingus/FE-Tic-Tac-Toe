@@ -13,16 +13,6 @@ var winFlag = false;
 var currentPlayer = null;
 var formattedMove = null;
 
-var winningCombos = [
-    [[0,0],[0,1],[0,2]],
-    [[1,0],[1,1],[1,2]],
-    [[2,0],[2,1],[2,2]],
-    [[0,0],[1,0],[2,0]],
-    [[0,1],[1,1],[2,1]],
-    [[0,2],[1,2],[2,2]],
-    [[0,0],[1,1],[2,2]],
-    [[2,0],[1,1],[0,2]]
-];
 
 var board = [
     [' ',' ',' '],
@@ -50,7 +40,7 @@ var validInput = function(regex, move){
             " plus contain a space in between them");
         currentPlayer.move = prompt();
     };
-}
+};
 
 var playerTurn = function(turnCounter){
     if (turnCounter % 2 === 0) {
@@ -59,6 +49,29 @@ var playerTurn = function(turnCounter){
         currentPlayer = player2;
     }
 };
+
+var checkIfWon = function(board, winningCombo){
+    for(var i = 0; i < board.length; i++){
+        if (board[i].join('') === winningCombo){
+            return true;
+            break;
+        }
+    };
+    if(board[0][0] + board[1][0]+ board[2][0] === winningCombo){
+        return true;
+    }else if(board[0][1] + board[1][1] + board[2][1] === winningCombo){
+        return true;
+    }else if(board[0][2] + board[1][2] + board[2][2] === winningCombo){
+        return true;
+    }else if(board[0][0] + board[1][1] + board[2][2] === winningCombo){
+        return true;
+    }else if(board[2][0] + board[1][1] + board[0][2] === winningCombo){
+        return true;
+    }else{
+        return false;
+    }
+};
+
 console.log('Welcome to the game of Tic-Tac-Toe!'.rainbow);
 console.log("-----------------------------------");
 console.log('Player 1 what is your name?'); player1.name = prompt();
@@ -88,5 +101,13 @@ while((winFlag === false) || (turnCounter < 9)){
         }
     };
     printBoard();
+    var winningCombo = currentPlayer.mark + currentPlayer.mark + currentPlayer.mark;
+    if (checkIfWon(board, winningCombo) === true){
+        console.log(currentPlayer.name + ' ' + 'has won!');
+        winFlag = true;
+        break;
+    }
+    console.log(checkIfWon(board, winningCombo));
+    console.log(winFlag)
     formattedMove = null;
 }
