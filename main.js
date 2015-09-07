@@ -56,7 +56,7 @@ var checkIfWon = function(board, winningCombo){
             return true;
             break;
         }
-    };
+    }
     if(board[0][0] + board[1][0]+ board[2][0] === winningCombo){
         return true;
     }else if(board[0][1] + board[1][1] + board[2][1] === winningCombo){
@@ -102,7 +102,7 @@ var game = function() {
     console.log("-----------------------------------\n");
     printBoard();
 
-    while ((winFlag === false) || (turnCounter < 9)) {
+    while ((winFlag === false)) {
         playerTurn(turnCounter);
         turnCounter++;
         console.log(currentPlayer.name + ' it is your turn!');
@@ -129,7 +129,6 @@ var game = function() {
                 board[yCoord - 1][xCoord - 1] = currentPlayer.mark;
             }
         }
-        ;
         printBoard();
         var winningCombo = currentPlayer.mark + currentPlayer.mark + currentPlayer.mark;
         if (checkIfWon(board, winningCombo) === true) {
@@ -137,8 +136,12 @@ var game = function() {
             winFlag = true;
             break;
         }
+        if (turnCounter === 9 ){
+            console.log('It has ended in a tie! No one wins!');
+            break;
+        }
         formattedMove = null;
-    };
+    }
     replayGame();
 };
 
